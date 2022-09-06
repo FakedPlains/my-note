@@ -39,7 +39,7 @@ displayed_sidebar: javawebSidebar
 
 - **方式一：实现 Servlet 接口**
 
-  ```java
+  ```java showLineNumbers 
   public class HelloServlet implements Servlet {
       @Override
       public void init(ServletConfig config) throws ServletException {
@@ -69,7 +69,7 @@ displayed_sidebar: javawebSidebar
   
 - **方式二：继承 HttpServlet 类**
 
-  ```java
+  ```java showLineNumbers 
   public class HelloServlet extends HttpServlet {
       // doGet() 方法用于处理 Get 请求
       @Override
@@ -89,7 +89,7 @@ displayed_sidebar: javawebSidebar
 
 ### 在 web.xml 中配置 servlet
 
-```xml
+```xml showLineNumbers 
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -125,7 +125,7 @@ displayed_sidebar: javawebSidebar
   - 获取 ServletContext 对象
   - 获取初始化参数 init-param
 
-```java
+```java showLineNumbers 
 public interface ServletConfig {
     public String getServletName();
 
@@ -139,7 +139,7 @@ public interface ServletConfig {
 
 - web.xml 中的配置
 
-  ```xml
+  ```xml showLineNumbers 
   <!-- servlet 标签给 Tomcat 配置 Servlet 程序 -->
   <servlet>
       <!--servlet-name 标签 Servlet 程序起一个别名（一般是类名） -->
@@ -171,3 +171,87 @@ public interface ServletConfig {
 - 获取工程部署后在服务器硬盘上的绝对路径
 - 像 Map 一样存取数据
 
+
+
+## 请求 (Request) 与响应 (Resposne)
+
+### 请求 (HttpServletRequest 类)
+
+> 只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析封装到 Request 对象中，然后传递到 service 方法（doGet 和 doPost）中，可以通过 HttpServletRequest 对象获取到所有的请求信息
+
+#### 常用方法
+
+- 获取请求的资源路径：`getRequestURI()`
+- 获取请求的统一资源定位符：`getRequestURL()`
+- 获取客户端的 ip 地址：`getRemoteHost()`
+- 获取请求头：`getHeader()`
+- 获取请求参数：`getParameter()`
+- 获取请求参数（多个值）：`getParameterValues()`
+- 获取请求方法：`getMethod()`
+- 设置域数据：`setAttribute(key, value)`
+- 获取域数据：`getAttribute(key)`
+- 获取请求转发对象：`getRequestDispatcher()`
+
+#### 获取请求参数
+
+- 获取一个值的请求参数：`request.getParameter()`
+- 获取多个值的请求参数：`request.getParameterValues()`
+
+#### 请求的转发
+
+> 请求转发是指服务器收到请求后，从一个资源跳转到另一个资源的操作
+
+```java 
+request.getRequestDispatcher("").forward(request, response);
+```
+
+#### 设置字符集，解决请求中文乱码问题
+
+- GET 请求：在 Tomcat 的 server.xml 中配置 `URIEncoding = “UTF-8”`
+- POST 请求：在**获取请求参数前**，调用 `request.setCharacterEncoding("UTF-8") `
+
+### 响应 (HttpServletResponse 类)
+
+> 每次请求进来，Tomcat 服务器都会创建要给 Response 对象传递给 Servlet 程序去使用，HttpServletResponse 表示所有响应的信息，通过HttpServletResponse 设置返回给客户端的信息
+
+#### 获取输出流
+
+- 字节流：`response.getOutputStream()`
+- 字符流：`response.getWriter()`
+
+#### 请求重定向
+
+> 请求重定向是指客户端给服务发送请求，然后服务器回传给客户端一个新地址，让客户端去访问这个新地址
+
+```java
+response.sendRedirect("");
+```
+
+#### 设置字符集，解决响应中文乱码问题
+
+- 方式一：设置服务器端对应响应体数据的编码字符集，还需要设置浏览器的解码字符集（不推荐）
+
+  ```java
+  // 设置服务器字符集为 UTF-8
+  resp.setCharacterEncoding("UTF-8");
+  // 通过响应头，设置浏览器也使用 UTF-8 字符集
+  resp.setHeader("Content-Type", "text/html; charset=UTF-8");
+  ```
+
+- 方式二：设置浏览器本次响应体的内容类型，等于设置浏览器的解码字符集，服务器会自动使用这个字符集编码
+
+  ```java
+  resp.setContentType("text/html; charset=UTF-8");
+  ```
+
+### 转发与重定向的对比
+
+|                 转发                 |                重定向                |
+| :----------------------------------: | :----------------------------------: |
+|               一次请求               |               两次请求               |
+| 浏览器地址栏显示的是第一个资源的地址 | 浏览器地址栏显示的是第二个资源的地址 |
+|     全程使用同一个 request 对象      |     全程使用不同的 request 对象      |
+|            在服务器端完成            |            在浏览器端完成            |
+|       目标资源地址由服务器解析       |         目标资源由浏览器解析         |
+|    目标资源可以在 WEB-INF 目录下     |    目标资源不能在 WEB-INF 目录下     |
+|       目标资源仅限于本应用内部       |        目标资源可以是外部资源        |
