@@ -66,7 +66,7 @@ const sidebars = {
           type: "doc",
           label: "Java Web",
           id: 'core/web/javaweb/README'
-        }
+        },
       ]
     },
     {
@@ -167,6 +167,19 @@ const sidebars = {
         },
       ]
     },
+    {
+      type: "category",
+      label: "Tomcat 源码解析",
+      collapsible: false,
+      collapsed: false,
+      items: [
+        {
+          type: 'doc',
+          label: 'Tomcat 概述',
+          id: 'web/tomcat/README'
+        },
+      ]
+    }
   ]
 };
 

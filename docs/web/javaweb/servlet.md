@@ -17,12 +17,7 @@ displayed_sidebar: javawebSidebar
 
 ### 生命周期
 
-| 生命周期环节 |                          调用的方法                          |        时机        | 次数 |
-| :----------: | :----------------------------------------------------------: | :----------------: | :--: |
-|   创建对象   |                          无参构造器                          | 默认：第一次请求时 |  1   |
-|    初始化    |             `init(ServletConfig servletConfig)`              |     创建对象后     |  1   |
-|   处理请求   | `service(ServletRequest servletRequest, ServletResponse servletResponse)` |    接收到请求后    |  n   |
-|   销毁对象   |                         `destroy()`                          |   Web应用卸载时    |  1   |
+![ServletLife](/img/core/javaweb/Servlet生命周期.png)
 
 ### Servlet 容器
 
@@ -166,9 +161,9 @@ public interface ServletConfig {
 
 #### 主要功能
 
-- 获取 web.xml 中配置的上下文参数 context-param
-- 获取当前工程路径
-- 获取工程部署后在服务器硬盘上的绝对路径
+- 获取 web.xml 中配置的上下文参数 context-param：`getInitParameter()`
+- 获取当前工程路径：`getContextPath()`
+- 获取工程部署后在服务器硬盘上的绝对路径：`getRealPath(String path)`
 - 像 Map 一样存取数据
 
 
