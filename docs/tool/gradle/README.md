@@ -1,4 +1,4 @@
 ---
-sidebar: false
+displayed_sidebar: gradleSidebar
 ---
-# 工具
+# Gradle
