@@ -180,6 +180,19 @@ const sidebars = {
         },
       ]
     }
+  ],
+  gitSidebar: [
+    {
+      type: 'category',
+      label: 'Git 使用指南',
+      collapsible: false,
+      collapsed: false,
+      items: [
+        {type: 'doc', id: 'tool/git/common-cmds', label: 'Git 常用命令'},
+        {type: 'doc', id: 'tool/git/branch-cmds', label: 'Git 分支操作'},
+        {type: 'doc', id: 'tool/git/remote-cmds', label: 'Git 远程仓库操作'},
+      ]
+    }
   ]
 };
 

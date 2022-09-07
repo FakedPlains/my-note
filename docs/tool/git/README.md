@@ -1,4 +1,7 @@
 ---
-sidebar: false
+displayed_sidebar: gitSidebar
 ---
-# 工具
+# Git 使用指南
+
+
+
