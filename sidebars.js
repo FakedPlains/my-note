@@ -14,117 +14,128 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
     docs: [
-        "core/README",
         {
             type: 'category',
-            label: '基础',
-            collapsible: true,
+            label: '全栈知识',
+            collapsible: false,
             collapsed: false,
+            link: {type: "doc", id: "core/README"},
             items: [
                 {
-                    type: 'doc',
-                    label: 'Java 知识体系',
-                    id: 'core/basic/java/README'
+                    type: 'category',
+                    label: '基础',
+                    collapsible: true,
+                    collapsed: false,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Java 知识体系',
+                            id: 'core/basic/java/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Golang 知识体系',
+                            id: 'core/basic/golang/README'
+                        },
+                    ],
                 },
                 {
-                    type: 'doc',
-                    label: 'Golang 知识体系',
-                    id: 'core/basic/golang/README'
+                    type: 'category',
+                    label: '数据库',
+                    collapsible: true,
+                    collapsed: false,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'MySQL',
+                            id: 'core/database/mysql/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'MongoDB',
+                            id: 'core/database/mongodb/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Redis',
+                            id: 'core/database/redis/README'
+                        },
+                    ],
                 },
-            ],
-        },
-        {
-            type: 'category',
-            label: '数据库',
-            collapsible: true,
-            collapsed: false,
-            items: [
                 {
-                    type: 'doc',
-                    label: 'MySQL',
-                    id: 'core/database/mysql/README'
+                    type: 'category',
+                    label: 'Web 基础',
+                    collapsible: true,
+                    collapsed: false,
+                    items: [
+                        {
+                            type: "doc",
+                            label: "Java Web",
+                            id: 'core/web/javaweb/README'
+                        },
+                    ]
                 },
                 {
-                    type: 'doc',
-                    label: 'MongoDB',
-                    id: 'core/database/mongodb/README'
+                    type: 'category',
+                    label: '框架 | 中间件',
+                    collapsible: true,
+                    collapsed: false,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Mybatis',
+                            id: 'core/framework/mybatis/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Spring',
+                            id: 'core/framework/spring/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'SpringBoot',
+                            id: 'core/framework/springboot/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'SpringCloud',
+                            id: 'core/framework/springcloud/README'
+                        },
+                    ]
                 },
                 {
-                    type: 'doc',
-                    label: 'Redis',
-                    id: 'core/database/redis/README'
-                },
-            ],
-        },
-        {
-            type: 'category',
-            label: 'Web 基础',
-            collapsible: true,
-            collapsed: false,
-            items: [
-                {
-                    type: "doc",
-                    label: "Java Web",
-                    id: 'core/web/javaweb/README'
-                },
+                    type: 'category',
+                    label: '工具 | 部署',
+                    collapsible: true,
+                    collapsed: false,
+                    link:{
+                        type: 'generated-index',
+                    },
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Git',
+                            id: 'core/tool/git/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Maven',
+                            id: 'core/tool/maven/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Gradle',
+                            id: 'core/tool/gradle/README'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Linux',
+                            id: 'core/tool/linux/README'
+                        },
+                    ]
+                }
             ]
         },
-        {
-            type: 'category',
-            label: '框架 | 中间件',
-            collapsible: true,
-            collapsed: false,
-            items: [
-                {
-                    type: 'doc',
-                    label: 'Mybatis',
-                    id: 'core/framework/mybatis/README'
-                },
-                {
-                    type: 'doc',
-                    label: 'Spring',
-                    id: 'core/framework/spring/README'
-                },
-                {
-                    type: 'doc',
-                    label: 'SpringBoot',
-                    id: 'core/framework/springboot/README'
-                },
-                {
-                    type: 'doc',
-                    label: 'SpringCloud',
-                    id: 'core/framework/springcloud/README'
-                },
-            ]
-        },
-        {
-            type: 'category',
-            label: '工具 | 部署',
-            collapsible: true,
-            collapsed: false,
-            items: [
-                {
-                    type: 'doc',
-                    label: 'Git',
-                    id: 'core/tool/git/README'
-                },
-                {
-                    type: 'doc',
-                    label: 'Maven',
-                    id: 'core/tool/maven/README'
-                },
-                {
-                    type: 'doc',
-                    label: 'Gradle',
-                    id: 'core/tool/gradle/README'
-                },
-                {
-                    type: 'doc',
-                    label: 'Linux',
-                    id: 'core/tool/linux/README'
-                },
-            ]
-        }
     ],
     javaSidebar: [
         {
@@ -210,9 +221,11 @@ const sidebars = {
             label: 'Gradle',
             collapsed: false,
             collapsible: false,
+            link: {type: 'doc', id: 'core/tool/gradle/README'},
             items: [
                 {type: 'doc', label: 'Gradle 入门', id: 'tool/gradle/getting-started'},
                 {type: 'doc', label: 'Gradle 进阶', id: 'tool/gradle/advanced'},
+                {type: 'doc', label: 'Gradle 命令', id: 'tool/gradle/command'},
             ]
         }
     ]

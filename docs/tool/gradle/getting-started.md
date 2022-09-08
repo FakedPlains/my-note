@@ -8,9 +8,9 @@
 
 ### 3.配置环境变量
 
-- 配置 GRADLE_HOME
-- 配置 GRADLE_USER_HOME
-  - GRALE_USER_HOME 相当于配置 Gradle 本地仓库位置和 Gradle Wrapper 缓存目录
+- 配置 `GRADLE_HOME`
+- 配置 `GRADLE_USER_HOME`
+  - `GRALE_USER_HOME` 相当于配置 Gradle 本地仓库位置和 Gradle Wrapper 缓存目录
 
 ### 4.检测是否安装成功
 
@@ -20,16 +20,22 @@ gradle -v
 
 ### 5.修改下载源
 
+:::info
 在 gradle 的 init.d 目录下创建以 .gradle 结尾的文件，可以实现在 build 开始执行之前做一些操作
+:::
 
 - 在 init.d 文件夹创建 init.gradle 文件
 
 ```gradle
 allprojects {
 	repositories { 
+	    // 指定使用maven本地仓库，而本地仓库在配置 maven 时 settings 文件指定的仓库位置
+	    // gradle 查找 jar 包顺序如下：USER_HOME/.m2/settings.xml >> M2_HOME/conf/settings.xml >> USER_HOME/.m2/repository 
 		mavenLocal() 
+		// 指定maven仓库，一般用私有仓库地址或其它的第三方库
 		maven { name "Alibaba" ; url "https://maven.aliyun.com/repository/public" } 
 		maven { name "Bstek" ; url "https://nexus.bsdn.org/content/groups/public/" } 
+		// 这是Maven的中央仓库，无需配置，直接声明就可以使用
 		mavenCentral()
 	}
 	buildscript {
@@ -41,55 +47,55 @@ allprojects {
 	}
 }
 ```
+:::tip
+- `gradle` 可以通过指定仓库地址为本地 `maven 仓库地址` 和 `远程仓库地址` 相结合的方式，避免每次都会去远程仓库下载依赖库
+- 下载的 `jar` 不是存储在本地 `maven 仓库` 中，而是放在自己的**缓存目录**中，默认在 `USER_HOME/.gradle/caches` 目录
+- 如果配置过 `GRADLE_USER_HOME` 环境变量，则会放在 `GRADLE_USER_HOME/caches` 目录
+:::
 
-- 启用 init.gradle 文件的方式：
+<details>
+  <summary>启用 <code>init.gradle</code> 文件的方式</summary>
 
-  1.在命令行指定文件,例如：gradle --init-script yourdir/init.gradle -q taskName。可以多次输入此命令来指定多个init文件 
+  1.在命令行指定文件，例如：<code>gradle --init-script yourdir/init.gradle -q taskName</code><br/>
+    可以多次输入此命令来指定多个init文件 
 
-  2.把init.gradle文件放到 USER_HOME/.gradle/ 目录下 
+  2.把 <code>init.gradle</code> 文件放到 <code>USER_HOME/.gradle/</code> 目录下 
 
-  3.把以.gradle结尾的文件放到 USER_HOME/.gradle/init.d/ 目录下 
+  3.把以 <code>.gradle</code> 结尾的文件放到 <code>USER_HOME/.gradle/init.d/</code> 目录下 
 
-  4.把以.gradle结尾的文件放到 GRADLE_HOME/init.d/ 目录下
+  4.把以 <code>.gradle</code> 结尾的文件放到 <code>GRADLE_HOME/init.d/</code> 目录下
 
-  如果存在上面的4种方式的2种以上，gradle会按上面的1-4序号依次执行这些文件，如果给定目录下存在多个init脚本，会 按拼音a-z顺序执行这些脚本，每个init脚本都存在一个对应的gradle实例,你在这个文件中调用的所有方法和属性，都会 委托给这个gradle实例，每个init脚本都实现了Script接口
-
-- 仓库地址说明
-
-  - mavenLocal(): 指定使用maven本地仓库，而本地仓库在配置maven时settings文件指定的仓库位置。如E:/repository，gradle 查找jar包顺序如下：USER_HOME/.m2/settings.xml >> M2_HOME/conf/settings.xml >> USER_HOME/.m2/repository 
-  - maven { url 地址}，指定maven仓库，一般用私有仓库地址或其它的第三方库【比如阿里镜像仓库地址】。 
-  - mavenCentral()：这是Maven的中央仓库，无需配置，直接声明就可以使用。 
-  - jcenter():JCenter中央仓库，实际也是是用的maven搭建的，但相比Maven仓库更友好，通过CDN分发，并且支持https访 问,在新版本中已经废弃了，替换为了mavenCentral()。 
-  - 总之, gradle可以通过指定仓库地址为本地maven仓库地址和远程仓库地址相结合的方式，避免每次都会去远程仓库下载 依赖库。这种方式也有一定的问题，如果本地maven仓库有这个依赖，就会从直接加载本地依赖，如果本地仓库没有该 依赖，那么还是会从远程下载。但是下载的jar不是存储在本地maven仓库中，而是放在自己的缓存目录中，默认在 USER_HOME/.gradle/caches目录,当然如果我们配置过GRADLE_USER_HOME环境变量，则会放在 GRADLE_USER_HOME/caches目录,那么可不可以将gradle caches指向maven repository。我们说这是不行的，caches下载 文件不是按照maven仓库中存放的方式
+  如果存在上面的 4 种方式的 2 种以上，gradle 会按上面的 1-4 序号依次执行这些文件，如果给定目录下存在多个 <code>init 脚本</code>，会按拼音 a-z 顺序执行这些脚本，每个 <code>init 脚本</code> 都存在一个对应的 <code>gradle实例</code>，你在这个文件中调用的所有方法和属性，都会委托给这个 <code>gradle 实例</code>，每个 <code>init 脚本</code> 都实现了 <code>Script 接口</code>
+</details>
 
 ## Gradle 的目录结构
 
 ```
 project
- |
- |--- build: 封装编译后的字节码、打成的报、测试报告等
- |--- gradle
- |	   |--- gradle-wrapper.jar
- |	   |--- gradle-wrapper.properties
- |--- src
- |	   |--- main
- |	   |	 |--- java
- |	   |	 |--- resource
- |	   |	 |--- webapp
- |	   |		   |--- WEB_INF
- |	   |		   |	 └--- web.xml
- |	   |		   └--- index.jsp
- |	   └--- test
- |			 |--- java
- |			 └--- resource
- |--- gradlew
- |--- gradlew.bat: 包装前启动脚本
- |--- build.gradle: 构建脚本，类似于 maven 中的 pom.xml
- └--- setting.gradle: 设置文件，定义项目及子项目名称信息，和项目是一一对应关系
+ ├── build: 封装编译后的字节码、打成的报、测试报告等
+ ├── gradle
+ │	  ├── gradle-wrapper.jar
+ |	  └── gradle-wrapper.properties
+ ├── src
+ |	  ├── main
+ |	  |    ├── java
+ |	  |	   ├── resource
+ |	  |	   └── webapp
+ |	  |		    ├── WEB_INF
+ |	  |		    |	 └── web.xml
+ |	  |		    └── index.jsp
+ |	  └── test
+ |		   ├── java
+ |		   └── resource
+ ├── gradlew
+ ├── gradlew.bat: 包装前启动脚本
+ ├── build.gradle: 构建脚本，类似于 maven 中的 pom.xml
+ └── setting.gradle: 设置文件，定义项目及子项目名称信息，和项目是一一对应关系
 ```
 
-1. 只有war工程才有webapp目录，对于普通的jar工程并没有webapp目录 
-2.  gradlew与gradlew.bat执行的指定wrapper版本中的gradle指令,不是本地安装的gradle指令
+:::caution 注意
+`gradlew` 与 `gradlew.bat` 执行的指定 wrapper 版本中的 gradle 指令,不是本地安装的 gradle 指令
+:::
 
 ## Gradle 的常用指令
 
