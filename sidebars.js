@@ -224,7 +224,8 @@ const sidebars = {
             link: {type: 'doc', id: 'core/tool/gradle/README'},
             items: [
                 {type: 'doc', label: 'Gradle 入门', id: 'tool/gradle/getting-started'},
-                {type: 'doc', label: 'Gradle 进阶', id: 'tool/gradle/advanced'},
+                {type: 'doc', label: 'Gradle 生命周期', id: 'tool/gradle/lifecycle'},
+                {type: 'doc', label: 'Gradle 任务', id: 'tool/gradle/task'},
                 {type: 'doc', label: 'Gradle 命令', id: 'tool/gradle/command'},
             ]
         }

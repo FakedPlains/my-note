@@ -97,44 +97,6 @@ project
 `gradlew` 与 `gradlew.bat` 执行的指定 wrapper 版本中的 gradle 指令,不是本地安装的 gradle 指令
 :::
 
-## Gradle 的常用指令
-
-### 初始化 Gradle 项目
-
-```shell
-gradle init
-```
-
-### 清空 build 目录
-
-```shell
-gradle clean
-```
-
-### 编译业务代码和配置文件
-
-```shell
-gradle classes
-```
-
-### 编译测试代码，生成测试报告
-
-```shell
-gradle test
-```
-
-### 构建项目
-
-```shell
-gradle build
-```
-
-### 跳过测试构建
-
-```shell
-gradle build -x test
-```
-
 ## Wrapper 包装器
 
 ### 概述

@@ -29,6 +29,18 @@ mainClassName='xxx.xxx.Xxx'
 gradle run
 ```
 
+### 编译业务代码和配置文件
+
+```shell
+gradle classes
+```
+
+### 编译测试代码，生成测试报告
+
+```shell
+gradle test
+```
+
 ### 清除当前项目的 build 目录
 
 ```shell
