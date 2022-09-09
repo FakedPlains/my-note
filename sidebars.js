@@ -224,8 +224,13 @@ const sidebars = {
             link: {type: 'doc', id: 'core/tool/gradle/README'},
             items: [
                 {type: 'doc', label: 'Gradle 入门', id: 'tool/gradle/getting-started'},
-                {type: 'doc', label: 'Gradle 生命周期', id: 'tool/gradle/lifecycle'},
+                {type: 'doc', label: 'Gradle 生命周期与配置文件', id: 'tool/gradle/lifecycle'},
                 {type: 'doc', label: 'Gradle 任务', id: 'tool/gradle/task'},
+                {type: 'doc', label: 'Gradle 文件操作', id: 'tool/gradle/file-operator'},
+                {type: 'doc', label: 'Gradle 依赖', id: 'tool/gradle/dependencies'},
+                {type: 'doc', label: 'Gradle 插件', id: 'tool/gradle/plugins'},
+                {type: 'doc', label: 'Gradle buildSrc 项目', id: 'tool/gradle/buildSrc'},
+                {type: 'doc', label: 'Gradle 项目发布', id: 'tool/gradle/publish'},
                 {type: 'doc', label: 'Gradle 命令', id: 'tool/gradle/command'},
             ]
         }
